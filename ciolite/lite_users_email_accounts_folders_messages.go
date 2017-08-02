@@ -267,26 +267,3 @@ func (cioLite CioLite) MoveUserEmailAccountFolderMessage(userID string, label st
 
 	return response, err
 }
-
-// MoveUserEmailAccountFolderMessage2 moves a message using the CIO 2.0 library.
-// formValues requires NewFolderID, and may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-put
-func (cioLite CioLite) MoveUserEmailAccountFolderMessage2(userID string, label string, folder string, messageID string, queryValues MoveUserEmailAccountFolderMessageParams) (MoveUserEmailAccountFolderMessageResponse, error) {
-
-	// Make request
-	request := clientRequest{
-		Method:       "PUT",
-		Path:         fmt.Sprintf("/lite/users/%s/email_accounts/%s/folders/%s/messages2/%s", userID, label, url.QueryEscape(folder), url.QueryEscape(messageID)),
-		QueryValues:  queryValues,
-		UserID:       userID,
-		AccountLabel: label,
-	}
-
-	// Make response
-	var response MoveUserEmailAccountFolderMessageResponse
-
-	// Request
-	err := cioLite.doFormRequest(request, &response)
-
-	return response, err
-}
