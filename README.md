@@ -34,7 +34,7 @@ func main() {
 	// ciolite.NewCioLiteWithLogger(cioKey, cioSecret, logrus.StandardLogger())
 
 	// Discovery Call Parameters
-	discoveryParams := ciolite.GetDiscoveryParams{Email: "test@gmail.com", SourceType: "IMAP"}
+	discoveryParams := ciolite.GetDiscoveryParams{Email: "test@gmail.com"}
 
 	// Actual Discovery Call
 	discoveryResp, err := cioLiteClient.GetDiscovery(discoveryParams)
