@@ -14,7 +14,6 @@ import (
 // 	https://context.io/docs/lite/users/webhooks#id-get
 type GetUsersWebhooksResponse struct {
 	CallbackURL        string `json:"callback_url,omitempty"`
-	FailureNotifURL    string `json:"failure_notif_url,omitempty"`
 	WebhookID          string `json:"webhook_id,omitempty"`
 	FilterTo           string `json:"filter_to,omitempty"`
 	FilterFrom         string `json:"filter_from,omitempty"`
@@ -46,8 +45,7 @@ type GetUsersWebhooksResponse struct {
 // 	https://context.io/docs/lite/users/webhooks#post
 type CreateUserWebhookParams struct {
 	// Requires:
-	CallbackURL     string `json:"callback_url"`
-	FailureNotifURL string `json:"failure_notif_url"`
+	CallbackURL string `json:"callback_url"`
 
 	// Optional:
 	FilterTo           string `json:"filter_to,omitempty"`
