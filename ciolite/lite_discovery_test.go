@@ -193,7 +193,7 @@ func TestActualDiscoveryRequestToCioForNonExistent(t *testing.T) {
 	// not found
 	response, err := cioLite.GetDiscovery(GetDiscoveryParams{Email: "test@bogusblahblahfoobar.com"})
 
-	if err != ErrNotFound {
+	if ErrorStatusCode(err) != 404 {
 		t.Error("Expected GetDiscovery Error ErrNotFound; Got: ", response, "; With Error: ", err)
 	}
 }
