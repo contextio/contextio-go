@@ -24,6 +24,9 @@ type clientRequest struct {
 	AccountLabel string
 }
 
+// ErrNotFound is a typed error for 404's
+var ErrNotFound = errors.New("Not Found")
+
 // doFormRequest makes the actual request
 func (cio CioLite) doFormRequest(request clientRequest, result interface{}) error {
 
@@ -57,6 +60,10 @@ func (cio CioLite) doFormRequest(request clientRequest, result interface{}) erro
 		if cio.PostRequestShouldRetryHook == nil || !cio.PostRequestShouldRetryHook(i, request.UserID, request.AccountLabel, request.Method, cioURL, statusCode, resBody, beforeAttempt, beforeAll, err) {
 			break
 		}
+	}
+
+	if statusCode == 404 {
+		return ErrNotFound
 	}
 
 	return err

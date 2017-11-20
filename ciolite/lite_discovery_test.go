@@ -103,7 +103,7 @@ func TestActualDiscoveryRequestToCioForYahoo(t *testing.T) {
 
 	expected := GetDiscoveryResponse{
 		Email: "test@yahoo.com",
-		Type:  "generic",
+		Type:  "yahoo",
 		Found: true,
 		IMAP: GetDiscoveryIMAPResponse{
 			Server:   "imap.mail.yahoo.com",
@@ -162,7 +162,7 @@ func TestActualDiscoveryRequestToCioForAol(t *testing.T) {
 
 	expected := GetDiscoveryResponse{
 		Email: "test@aol.com",
-		Type:  "generic",
+		Type:  "aol",
 		Found: true,
 		IMAP: GetDiscoveryIMAPResponse{
 			Server:   "imap.aol.com",
@@ -190,24 +190,10 @@ func TestActualDiscoveryRequestToCioForNonExistent(t *testing.T) {
 
 	cioLite := NewTestCioLite(t)
 
-	expected := GetDiscoveryResponse{
-		Email: "test@bogusblahblahfoobar.com",
-		Type:  "",
-		Found: false,
-		IMAP: GetDiscoveryIMAPResponse{
-			Server:   "",
-			Username: "",
-			UseSSL:   false,
-			OAuth:    false,
-			Port:     0,
-		},
-	}
-
-	// aol
+	// not found
 	response, err := cioLite.GetDiscovery(GetDiscoveryParams{Email: "test@bogusblahblahfoobar.com"})
-	expected.Documentation = response.Documentation
 
-	if err != nil || !reflect.DeepEqual(expected, response) {
-		t.Error("Expected GetDiscovery Response: ", expected, "; Got: ", response, "; With Error: ", err)
+	if err != ErrNotFound {
+		t.Error("Expected GetDiscovery Error ErrNotFound; Got: ", response, "; With Error: ", err)
 	}
 }
