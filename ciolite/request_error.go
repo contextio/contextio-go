@@ -1,6 +1,7 @@
 package ciolite
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -80,7 +81,12 @@ func (e RequestError) MarshalJSON() ([]byte, error) {
 		Err string
 		ErrorMetaData
 	}
-	return json.Marshal(Temp{e.Err.Error(), e.ErrorMetaData})
+	// Marshall
+	buffer := &bytes.Buffer{}
+	encoder := json.NewEncoder(buffer)
+	encoder.SetEscapeHTML(false)
+	err := encoder.Encode(Temp{e.Err.Error(), e.ErrorMetaData})
+	return bytes.Trim(buffer.Bytes(), " \r\n"), err
 }
 
 // UnmarshalJSON allows RequestError to implement json.Unmarshaler (for completeness since RequestError implements Marshaler).

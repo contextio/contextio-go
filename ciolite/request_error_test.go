@@ -1,6 +1,7 @@
 package ciolite
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"reflect"
@@ -20,6 +21,10 @@ func newError() error {
 
 func wrappedError() error {
 	return RequestError{errors.Wrap(fmt.Errorf("cause %s", "error"), "outer error"), ErrorMetaData{StatusCode: 500, Payload: "wrapped", Method: "PUT", URL: "https://cio"}}
+}
+
+func htmlError() error {
+	return RequestError{fmt.Errorf("status >= 400 & < 9000"), ErrorMetaData{StatusCode: 401, Payload: "<html>&amp;</html>", Method: "GET", URL: "https://cio"}}
 }
 
 // TestRequestErrorWrapped tests the behavior of a RequestError that wrapped a causing error
@@ -198,5 +203,99 @@ func TestRequestErrorNil(t *testing.T) {
 
 	} else if unmarshalled != nil {
 		t.Error("Expected unmarshalled json error to be: nil; Got: ", unmarshalled)
+	}
+}
+
+// TestRequestErrorHTML tests the behavior of a RequestError that contains characters that might get escaped in json
+func TestRequestErrorHTML(t *testing.T) {
+	t.Parallel()
+
+	err := htmlError()
+	if err == nil {
+		t.Fatal("Expected non-nil error; Got: ", err)
+	}
+
+	expectedSuffix := "{StatusCode:401 Payload:<html>&amp;</html> Method:GET URL:https://cio}"
+	if err.Error() != ("status >= 400 & < 9000; " + expectedSuffix) {
+		t.Error("Expected error string of: ", "status >= 400 & < 9000", "; Got: ", err.Error())
+	}
+
+	if errors.Cause(err).Error() != "status >= 400 & < 9000" {
+		t.Error("Expected error cause string of: ", "status >= 400 & < 9000", "; Got: ", err.Error())
+	}
+
+	expectedPrefix := "status >= 400 & < 9000\n"
+	if plusV := fmt.Sprintf("%+v", err); !strings.HasPrefix(plusV, expectedPrefix) || !strings.HasSuffix(plusV, expectedSuffix) {
+		t.Error("Expected +v formatting of: ", expectedPrefix, expectedSuffix, "; Got: ", plusV)
+	}
+
+	if code := ErrorStatusCode(err); code != 401 {
+		t.Error("Expected error status code of: ", 401, "; Got: ", code)
+	}
+
+	if val := ErrorPayload(err); val != "<html>&amp;</html>" {
+		t.Error("Expected error payload of: ", "<html>&amp;</html>", "; Got: ", val)
+	}
+
+	if val := ErrorMethod(err); val != "GET" {
+		t.Error("Expected error method of: ", "GET", "; Got: ", val)
+	}
+
+	if val := ErrorURL(err); val != "https://cio" {
+		t.Error("Expected error url of: ", "https://cio", "; Got: ", val)
+	}
+
+	_, ok := err.(RequestError)
+	if !ok {
+		t.Error("Expected error to be of type: ", "RequestError", "; Got: ", err)
+	}
+
+	{
+		jsonBytes, jsonErr := json.Marshal(err)
+		if jsonErr != nil {
+			t.Error(jsonErr)
+		}
+
+		expectedEscapedJSON := `{"Err":"status \u003e= 400 \u0026 \u003c 9000","StatusCode":401,"Payload":"\u003chtml\u003e\u0026amp;\u003c/html\u003e","Method":"GET","URL":"https://cio"}`
+		if string(jsonBytes) != expectedEscapedJSON {
+			t.Error("Expected json to be: ", expectedEscapedJSON, "; Got: ", string(jsonBytes))
+		}
+
+		if unmarshalled, libErr := UnmarshalJSON(jsonBytes); libErr != nil {
+			t.Error(libErr)
+
+		} else if !reflect.DeepEqual(unmarshalled.(RequestError).ErrorMetaData, err.(RequestError).ErrorMetaData) {
+			t.Error("Expected unmarshalled json error meta data to be: ", err.(RequestError).ErrorMetaData, "; Got: ", unmarshalled.(RequestError).ErrorMetaData)
+
+		} else if unmarshalled.(RequestError).Err.Error() != err.(RequestError).Err.Error() {
+			t.Error("Expected unmarshalled json error string to be: ", err.(RequestError).Err, "; Got: ", unmarshalled.(RequestError).Err)
+		}
+	}
+
+	{
+		// Marshel without escaping
+		buffer := &bytes.Buffer{}
+		encoder := json.NewEncoder(buffer)
+		encoder.SetEscapeHTML(false)
+		jsonErr := encoder.Encode(err)
+		if jsonErr != nil {
+			t.Error(jsonErr)
+		}
+		jsonBytes := bytes.Trim(buffer.Bytes(), " \r\n")
+
+		expectedUnescapedJSON := `{"Err":"status >= 400 & < 9000","StatusCode":401,"Payload":"<html>&amp;</html>","Method":"GET","URL":"https://cio"}`
+		if string(jsonBytes) != expectedUnescapedJSON {
+			t.Error("Expected unescaped json to be: ", expectedUnescapedJSON, "; Got: ", string(jsonBytes))
+		}
+
+		if unmarshalled, libErr := UnmarshalJSON(jsonBytes); libErr != nil {
+			t.Error(libErr)
+
+		} else if !reflect.DeepEqual(unmarshalled.(RequestError).ErrorMetaData, err.(RequestError).ErrorMetaData) {
+			t.Error("Expected unmarshalled unescaped json error meta data to be: ", err.(RequestError).ErrorMetaData, "; Got: ", unmarshalled.(RequestError).ErrorMetaData)
+
+		} else if unmarshalled.(RequestError).Err.Error() != err.(RequestError).Err.Error() {
+			t.Error("Expected unmarshalled unescaped json error string to be: ", err.(RequestError).Err, "; Got: ", unmarshalled.(RequestError).Err)
+		}
 	}
 }
