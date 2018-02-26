@@ -126,7 +126,7 @@ type WebhookMessageData struct {
 	Date         int `json:"date,omitempty"`
 	DateReceived int `json:"date_received,omitempty"`
 
-	ID uint64 `json:"id,omitempty"` // Unique message identifier or body hash
+	ID string `json:"id,omitempty"` // Unique message identifier or body hash
 
 	Addresses WebhookMessageDataAddresses `json:"addresses,omitempty"`
 
