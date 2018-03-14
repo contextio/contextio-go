@@ -75,6 +75,80 @@ func NewCioLite(key string, secret string) CioLite {
 	}
 }
 
+// CIOInterface is just to help generate a mocked client, for testing elsewhere.
+// mockgen -source=ciolite.go -destination=ciolite_mock.go -package ciolite
+type CIOInterface interface {
+	GetStatusCallbackURL() (GetStatusCallbackURLResponse, error)
+	CreateStatusCallbackURL(formValues CreateStatusCallbackURLParams) (CreateDeleteStatusCallbackURLResponse, error)
+	DeleteStatusCallbackURL() (CreateDeleteStatusCallbackURLResponse, error)
+
+	GetConnectTokens() ([]GetConnectTokenResponse, error)
+	GetConnectToken(token string) (GetConnectTokenResponse, error)
+	CreateConnectToken(formValues CreateConnectTokenParams) (CreateConnectTokenResponse, error)
+	DeleteConnectToken(token string) (DeleteConnectTokenResponse, error)
+	CheckConnectToken(connectToken GetConnectTokenResponse, email string) error
+
+	GetDiscovery(queryValues GetDiscoveryParams) (GetDiscoveryResponse, error)
+
+	GetOAuthProviders() ([]GetOAuthProvidersResponse, error)
+	GetOAuthProvider(key string) (GetOAuthProvidersResponse, error)
+	CreateOAuthProvider(formValues CreateOAuthProviderParams) (CreateOAuthProviderResponse, error)
+	DeleteOAuthProvider(key string) (DeleteOAuthProviderResponse, error)
+
+	GetUserConnectTokens(userID string) ([]GetConnectTokenResponse, error)
+	GetUserConnectToken(userID string, token string) (GetConnectTokenResponse, error)
+	CreateUserConnectToken(userID string, formValues CreateConnectTokenParams) (CreateConnectTokenResponse, error)
+	DeleteUserConnectToken(userID string, token string) (DeleteConnectTokenResponse, error)
+
+	GetUserEmailAccountConnectTokens(userID string, label string) ([]GetConnectTokenResponse, error)
+	GetUserEmailAccountConnectToken(userID string, label string, token string) (GetConnectTokenResponse, error)
+	CreateUserEmailAccountConnectToken(userID string, label string, formValues CreateConnectTokenParams) (CreateConnectTokenResponse, error)
+	DeleteUserEmailAccountConnectToken(userID string, label string, token string) (DeleteConnectTokenResponse, error)
+
+	GetUserEmailAccountsFolderMessageAttachments(userID string, label string, folder string, messageID string, queryValues EmailAccountFolderDelimiterParam) ([]GetUserEmailAccountsFolderMessageAttachmentsResponse, error)
+	GetUserEmailAccountsFolderMessageAttachment(userID string, label string, folder string, messageID string, attachmentID string, queryValues EmailAccountFolderDelimiterParam) (GetUserEmailAccountsFolderMessageAttachmentsResponse, error)
+	GetUserEmailAccountsFolderMessageBody(userID string, label string, folder string, messageID string, queryValues GetUserEmailAccountsFolderMessageBodyParams) ([]GetUserEmailAccountsFolderMessageBodyResponse, error)
+	GetUserEmailAccountsFolderMessageFlags(userID string, label string, folder string, messageID string, queryValues EmailAccountFolderDelimiterParam) (GetUserEmailAccountsFolderMessageFlagsResponse, error)
+
+	GetUserEmailAccountsFolderMessageHeaders(userID string, label string, folder string, messageID string, queryValues GetUserEmailAccountsFolderMessageHeadersParams) (GetUserEmailAccountsFolderMessageHeadersResponse, error)
+	GetUserEmailAccountsFolderMessageRaw(userID string, label string, folder string, messageID string, queryValues EmailAccountFolderDelimiterParam) (GetUserEmailAccountsFolderMessageRawResponse, error)
+	MarkUserEmailAccountsFolderMessageRead(userID string, label string, folder string, messageID string, formValues EmailAccountFolderDelimiterParam) (UserEmailAccountsFolderMessageReadResponse, error)
+	MarkUserEmailAccountsFolderMessageUnRead(userID string, label string, folder string, messageID string, formValues EmailAccountFolderDelimiterParam) (UserEmailAccountsFolderMessageReadResponse, error)
+
+	GetUserEmailAccountsFolderMessages(userID string, label string, folder string, queryValues GetUserEmailAccountsFolderMessageParams) ([]GetUsersEmailAccountFolderMessagesResponse, error)
+	GetUserEmailAccountFolderMessage(userID string, label string, folder string, messageID string, queryValues GetUserEmailAccountsFolderMessageParams) (GetUsersEmailAccountFolderMessagesResponse, error)
+	MoveUserEmailAccountFolderMessage(userID string, label string, folder string, messageID string, queryValues MoveUserEmailAccountFolderMessageParams) (MoveUserEmailAccountFolderMessageResponse, error)
+
+	GetUserEmailAccountsFolders(userID string, label string, queryValues GetUserEmailAccountsFoldersParams) ([]GetUsersEmailAccountFoldersResponse, error)
+	GetUserEmailAccountFolder(userID string, label string, folder string, queryValues EmailAccountFolderDelimiterParam) (GetUsersEmailAccountFoldersResponse, error)
+	CreateUserEmailAccountFolder(userID string, label string, folder string, formValues EmailAccountFolderDelimiterParam) (CreateEmailAccountFolderResponse, error)
+	SafeCreateUserEmailAccountFolder(userID string, label string, folder string, formValues EmailAccountFolderDelimiterParam) (bool, error)
+
+	GetUserEmailAccounts(userID string, queryValues GetUserEmailAccountsParams) ([]GetUsersEmailAccountsResponse, error)
+	GetUserEmailAccount(userID string, label string) (GetUsersEmailAccountsResponse, error)
+	CreateUserEmailAccount(userID string, formValues CreateUserParams) (CreateEmailAccountResponse, error)
+	ModifyUserEmailAccount(userID string, label string, formValues ModifyUserEmailAccountParams) (ModifyEmailAccountResponse, error)
+	DeleteUserEmailAccount(userID string, label string) (DeleteEmailAccountResponse, error)
+
+	GetUserWebhooks(userID string) ([]GetUsersWebhooksResponse, error)
+	GetUserWebhook(userID string, webhookID string) (GetUsersWebhooksResponse, error)
+	CreateUserWebhook(userID string, formValues CreateUserWebhookParams) (CreateUserWebhookResponse, error)
+	ModifyUserWebhook(userID string, webhookID string, formValues ModifyUserWebhookParams) (ModifyWebhookResponse, error)
+	DeleteUserWebhookAccount(userID string, webhookID string) (DeleteWebhookResponse, error)
+
+	GetUsers(queryValues GetUsersParams) ([]GetUsersResponse, error)
+	GetUser(userID string) (GetUsersResponse, error)
+	CreateUser(formValues CreateUserParams) (CreateUserResponse, error)
+	ModifyUser(userID string, formValues ModifyUserParams) (ModifyUserResponse, error)
+	DeleteUser(userID string) (DeleteUserResponse, error)
+
+	GetWebhooks() ([]GetUsersWebhooksResponse, error)
+	GetWebhook(webhookID string) (GetUsersWebhooksResponse, error)
+	CreateWebhook(formValues CreateUserWebhookParams) (CreateUserWebhookResponse, error)
+	ModifyWebhook(webhookID string, formValues ModifyUserWebhookParams) (ModifyWebhookResponse, error)
+	DeleteWebhookAccount(webhookID string) (DeleteWebhookResponse, error)
+}
+
 // NewTestCioLiteServer is a convenience function that returns a CioLite object
 // and a *httptest.Server (which must be closed when done being used).
 // The CioLite instance will hit the test server for all requests.
