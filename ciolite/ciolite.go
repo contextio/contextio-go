@@ -78,7 +78,6 @@ func NewCioLite(key string, secret string) CioLite {
 // Interface is just to help generate a mocked client, for testing elsewhere.
 // mockgen -source=ciolite.go -destination=ciolite_mock.go -package ciolite
 type Interface interface {
-	NewTestCioLiteServer(handler http.Handler) (CioLite, *httptest.Server)
 	ValidateCallback(token string, signature string, timestamp int) bool
 
 	GetStatusCallbackURL() (GetStatusCallbackURLResponse, error)

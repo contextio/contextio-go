@@ -5,8 +5,6 @@ package ciolite
 
 import (
 	gomock "github.com/golang/mock/gomock"
-	http "net/http"
-	httptest "net/http/httptest"
 )
 
 // Mock of Interface interface
@@ -28,17 +26,6 @@ func NewMockInterface(ctrl *gomock.Controller) *MockInterface {
 
 func (_m *MockInterface) EXPECT() *_MockInterfaceRecorder {
 	return _m.recorder
-}
-
-func (_m *MockInterface) NewTestCioLiteServer(handler http.Handler) (CioLite, *httptest.Server) {
-	ret := _m.ctrl.Call(_m, "NewTestCioLiteServer", handler)
-	ret0, _ := ret[0].(CioLite)
-	ret1, _ := ret[1].(*httptest.Server)
-	return ret0, ret1
-}
-
-func (_mr *_MockInterfaceRecorder) NewTestCioLiteServer(arg0 interface{}) *gomock.Call {
-	return _mr.mock.ctrl.RecordCall(_mr.mock, "NewTestCioLiteServer", arg0)
 }
 
 func (_m *MockInterface) ValidateCallback(token string, signature string, timestamp int) bool {
