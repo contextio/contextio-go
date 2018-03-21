@@ -118,6 +118,8 @@ type WebhookCallback struct {
 type WebhookMessageData struct {
 	MessageID      string `json:"message_id,omitempty"`
 	EmailMessageID string `json:"email_message_id,omitempty"`
+	//New Message ID is a hex encoded 16 character string, to replace MessageID entirely in the future
+	NewMessageID   string  `json:"new_message_id,omitempty"`
 	Subject        string `json:"subject,omitempty"`
 
 	References []string `json:"references,omitempty"`
