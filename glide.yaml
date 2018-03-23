@@ -4,3 +4,6 @@ import:
 - package: github.com/garyburd/go-oauth
   subpackages:
   - oauth
+- package: github.com/golang/mock
+  subpackages:
+  - gomock

@@ -8,8 +8,6 @@ This library is currently in BETA, and as such we make no promises; the use of t
 ```bash
 # For the LITE api
 go get github.com/contextio/contextio-go/ciolite
-
-# 2.0 api coming soon...
 ```
 
 ## CIO Lite Usage
@@ -58,6 +56,34 @@ func main() {
 		ciolite.GetUserEmailAccountsFolderMessageParams{},
 	))
 }
+```
+
+## Testing
+A testing interface/mock is provided via [GoMock](https://github.com/golang/mock), and can be used in tests like so:
+
+```
+// mock cio
+mockCtrl := gomock.NewController(t)
+defer mockCtrl.Finish()
+cioMock := ciolite.NewMockInterface(mockCtrl)
+
+// mock discovery
+discoveryReq := ciolite.GetDiscoveryParams{Email: "test@gmail.com"}
+discoveryRes := ciolite.GetDiscoveryResponse{
+	Found: true,
+	Type:  "gmail",
+	IMAP: ciolite.GetDiscoveryIMAPResponse{
+		Username: "test@gmail.com",
+		Server:   "imap.gmail.com",
+		Port:     993,
+		UseSSL:   true,
+		OAuth:    true,
+	},
+}
+
+cioMock.EXPECT().GetDiscovery(discoveryReq).Return(discoveryRes, nil)
+
+// use this mock in a test somewhere
 ```
 
 ## Support
