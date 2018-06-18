@@ -15,7 +15,7 @@ type GetUserEmailAccountsFolderMessageAttachmentsResponse struct {
 	FileName           string `json:"file_name,omitempty"`
 	BodySection        string `json:"body_section,omitempty"`
 	ContentDisposition string `json:"content_disposition,omitempty"`
-	EmailMessageID     string `json:"email_message_id,omitempty"`
+	MessageID          string `json:"message_id,omitempty"`
 	XAttachmentID      string `json:"x_attachment_id,omitempty"`
 
 	Size         int `json:"size,omitempty"`

@@ -16,10 +16,9 @@ func TestReceivingWebhookEmptyAddresses(t *testing.T) {
 	"webhook_id": "abc4567XYZ",
 	"timestamp": 1467254577,
 	"message_data": {
-		"email_message_id": "<blah-1234@test.com>",
+		"message_id": "aaaaa111aaaa11aa",
 		"addresses": [],
 		"references": [],
-		"message_id": "<blah-1234@test.com>",
 		"flags": {
 			"flagged": false,
 			"answered": false,
@@ -69,8 +68,7 @@ func TestSimulatedReceivingWebhookFullAddresses(t *testing.T) {
 	"signature": "fake123Signature",
 	"timestamp": 1467254202,
 	"message_data": {
-		"message_id": "<blah-1234@test.com>",
-		"email_message_id": "<blah-1234@test.com>",
+		"message_id": "aaaaa111aaaa11aa",
 		"subject": "Test Subject",
 		"folders": ["Inbox"],
 		"date": 1446919784,

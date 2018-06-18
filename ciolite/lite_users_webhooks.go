@@ -116,19 +116,14 @@ type WebhookCallback struct {
 // WebhookMessageData data struct within WebhookCallback
 // 	https://context.io/docs/lite/users/webhooks#callbacks
 type WebhookMessageData struct {
-	MessageID      string `json:"message_id,omitempty"`
-	EmailMessageID string `json:"email_message_id,omitempty"`
-	//New Message ID is a hex encoded 16 character string, to replace MessageID entirely in the future
-	NewMessageID   string  `json:"new_message_id,omitempty"`
-	Subject        string `json:"subject,omitempty"`
+	MessageID string `json:"message_id,omitempty"`
+	Subject   string `json:"subject,omitempty"`
 
 	References []string `json:"references,omitempty"`
 	Folders    []string `json:"folders,omitempty"`
 
 	Date         int `json:"date,omitempty"`
 	DateReceived int `json:"date_received,omitempty"`
-
-	ID string `json:"id,omitempty"` // Unique message identifier or body hash
 
 	Addresses WebhookMessageDataAddresses `json:"addresses,omitempty"`
 

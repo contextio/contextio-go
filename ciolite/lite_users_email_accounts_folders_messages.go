@@ -33,11 +33,10 @@ type GetUserEmailAccountsFolderMessageParams struct {
 // 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
 // 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 type GetUsersEmailAccountFolderMessagesResponse struct {
-	EmailMessageID string `json:"email_message_id,omitempty"`
-	Subject        string `json:"subject,omitempty"`
-	MessageID      string `json:"message_id,omitempty"`
-	InReplyTo      string `json:"in_reply_to,omitempty"`
-	ResourceURL    string `json:"resource_url,omitempty"`
+	MessageID   string `json:"message_id,omitempty"`
+	Subject     string `json:"subject,omitempty"`
+	InReplyTo   string `json:"in_reply_to,omitempty"`
+	ResourceURL string `json:"resource_url,omitempty"`
 
 	Folders         []string `json:"folders,omitempty"`
 	References      []string `json:"references,omitempty"`
@@ -65,7 +64,7 @@ type UsersEmailAccountFolderMessageAttachment struct {
 	FileName           string `json:"file_name,omitempty"`
 	BodySection        string `json:"body_section,omitempty"`
 	ContentDisposition string `json:"content_disposition,omitempty"`
-	EmailMessageID     string `json:"email_message_id,omitempty"`
+	MessageID          string `json:"message_id,omitempty"`
 	//XAttachmentID      string `json:"x_attachment_id,omitempty"` // Format is sometimes a string, sometimes an array of strings?
 
 	Size         int `json:"size,omitempty"`
