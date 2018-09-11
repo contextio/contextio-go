@@ -1,6 +1,8 @@
 // Package ciolite is the Golang client library for the Lite Context.IO API
 package ciolite
 
+//go:generate mockgen -source ciolite.go -destination ciolite_mock.go -package ciolite
+
 import (
 	"crypto/hmac"
 	"crypto/sha256"
