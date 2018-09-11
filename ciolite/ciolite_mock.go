@@ -330,7 +330,7 @@ func (mr *MockInterfaceMockRecorder) GetUserEmailAccountsFolderMessageAttachment
 }
 
 // GetUserEmailAccountsFolderMessageAttachment mocks base method
-func (m *MockInterface) GetUserEmailAccountsFolderMessageAttachment(userID, label, folder, messageID, attachmentID string, queryValues EmailAccountFolderDelimiterParam) (GetUserEmailAccountsFolderMessageAttachmentsResponse, error) {
+func (m *MockInterface) GetUserEmailAccountsFolderMessageAttachment(userID, label, folder, messageID, attachmentID string, queryValues GetUserEmailAccountsFolderMessageAttachmentParam) (GetUserEmailAccountsFolderMessageAttachmentsResponse, error) {
 	ret := m.ctrl.Call(m, "GetUserEmailAccountsFolderMessageAttachment", userID, label, folder, messageID, attachmentID, queryValues)
 	ret0, _ := ret[0].(GetUserEmailAccountsFolderMessageAttachmentsResponse)
 	ret1, _ := ret[1].(error)
