@@ -3,6 +3,8 @@ package ciolite
 // Api functions that support: users/email_accounts/folders/messages/attachments
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/url"
 )
@@ -18,6 +20,30 @@ type GetUserEmailAccountsFolderMessageAttachmentsResponse struct {
 
 	Size         int `json:"size,omitempty"`
 	AttachmentID int `json:"attachment_id,omitempty"`
+
+	AttachmentLink string
+}
+
+// UnmarshalJSON is here because the `as_link` response is a raw response with an http link
+func (m *GetUserEmailAccountsFolderMessageAttachmentsResponse) UnmarshalJSON(b []byte) error {
+
+	// json response  should start with an open object
+	if !bytes.HasPrefix(b, []byte("{")) {
+		*m = GetUserEmailAccountsFolderMessageAttachmentsResponse{}
+		m.AttachmentLink = string(b[:])
+		return nil
+	}
+
+	// avoid recursion
+	type temp GetUserEmailAccountsFolderMessageAttachmentsResponse
+	var tmp temp
+
+	if err := json.Unmarshal(b, &tmp); err != nil {
+		return err
+	}
+
+	*m = GetUserEmailAccountsFolderMessageAttachmentsResponse(tmp)
+	return nil
 }
 
 // GetUserEmailAccountsFolderMessageAttachments gets listings of email attachments.
@@ -42,9 +68,15 @@ func (cioLite CioLite) GetUserEmailAccountsFolderMessageAttachments(userID strin
 	return response, err
 }
 
+// GetUserEmailAccountsFolderMessageAttachmentParam query values data struct.
+type GetUserEmailAccountsFolderMessageAttachmentParam struct {
+	Delimiter string `json:"delimiter,omitempty"`
+	AsLink    bool   `json:"as_link,omitempty"`
+}
+
 // GetUserEmailAccountsFolderMessageAttachment retrieves an email attachment.
-// queryValues may optionally contain Delimiter
-func (cioLite CioLite) GetUserEmailAccountsFolderMessageAttachment(userID string, label string, folder string, messageID string, attachmentID string, queryValues EmailAccountFolderDelimiterParam) (GetUserEmailAccountsFolderMessageAttachmentsResponse, error) {
+// queryValues may optionally contain Delimiter and AsLink
+func (cioLite CioLite) GetUserEmailAccountsFolderMessageAttachment(userID string, label string, folder string, messageID string, attachmentID string, queryValues GetUserEmailAccountsFolderMessageAttachmentParam) (GetUserEmailAccountsFolderMessageAttachmentsResponse, error) {
 
 	// Make request
 	request := clientRequest{
