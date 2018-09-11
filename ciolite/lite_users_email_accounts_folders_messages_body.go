@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/email_accounts/folders/messages/body
+// Api functions that support: users/email_accounts/folders/messages/body
 
 import (
 	"fmt"
@@ -9,7 +9,6 @@ import (
 
 // GetUserEmailAccountsFolderMessageBodyParams query values data struct.
 // Optional: Delimiter, Type.
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/body#get
 type GetUserEmailAccountsFolderMessageBodyParams struct {
 	// Optional:
 	Delimiter string `json:"delimiter,omitempty"`
@@ -17,7 +16,6 @@ type GetUserEmailAccountsFolderMessageBodyParams struct {
 }
 
 // GetUserEmailAccountsFolderMessageBodyResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/body#get
 type GetUserEmailAccountsFolderMessageBodyResponse struct {
 	Type        string `json:"type,omitempty"`
 	Charset     string `json:"charset,omitempty"`
@@ -27,7 +25,6 @@ type GetUserEmailAccountsFolderMessageBodyResponse struct {
 
 // GetUserEmailAccountsFolderMessageBody fetches the message body of a given email.
 // queryValues may optionally contain Delimiter, Type
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/body#get
 func (cioLite CioLite) GetUserEmailAccountsFolderMessageBody(userID string, label string, folder string, messageID string, queryValues GetUserEmailAccountsFolderMessageBodyParams) ([]GetUserEmailAccountsFolderMessageBodyResponse, error) {
 
 	// Make request

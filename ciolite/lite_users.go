@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users
+// Api functions that support: users
 
 import (
 	"fmt"
@@ -8,7 +8,6 @@ import (
 
 // GetUsersParams query values data struct.
 // Optional: Email, Status, StatusOK, Limit, Offset.
-// 	https://context.io/docs/lite/users#get
 type GetUsersParams struct {
 	// Optional:
 	Email    string `json:"email,omitempty"`
@@ -19,8 +18,6 @@ type GetUsersParams struct {
 }
 
 // GetUsersResponse data struct
-// 	https://context.io/docs/lite/users#get
-// 	https://context.io/docs/lite/users#id-get
 type GetUsersResponse struct {
 	ID             string   `json:"id,omitempty"`
 	Username       string   `json:"username,omitempty"`
@@ -44,8 +41,6 @@ type GetUsersResponse struct {
 // and (if not OAUTH) Password,
 // and may optionally contain StatusCallbackURL,
 // and (only for CreateUser) MigrateAccountID, FirstName, LastName.
-// 	https://context.io/docs/lite/users#post
-// 	https://context.io/docs/lite/users/email_accounts#post
 type CreateUserParams struct {
 	// Optional, but Required for creating an Email Account
 	Email    string `json:"email"`
@@ -72,7 +67,6 @@ type CreateUserParams struct {
 }
 
 // CreateUserResponse data struct
-// 	https://context.io/docs/lite/users#post
 type CreateUserResponse struct {
 	Success bool   `json:"success,omitempty"`
 	ID      string `json:"id,omitempty"`
@@ -89,7 +83,6 @@ type CreateUserResponse struct {
 
 // ModifyUserParams form values data struct.
 // Requires: FirstName, LastName.
-// 	https://context.io/docs/lite/users#id-post
 type ModifyUserParams struct {
 	// Requires:
 	FirstName string `json:"first_name"`
@@ -97,14 +90,12 @@ type ModifyUserParams struct {
 }
 
 // ModifyUserResponse data struct
-// 	https://context.io/docs/lite/users#id-post
 type ModifyUserResponse struct {
 	Success     bool   `json:"success,omitempty"`
 	ResourceURL string `json:"resource_url,omitempty"`
 }
 
 // DeleteUserResponse data struct
-// 	https://context.io/docs/lite/users#id-delete
 type DeleteUserResponse struct {
 	Success     bool   `json:"success,omitempty"`
 	ResourceURL string `json:"resource_url,omitempty"`
@@ -112,7 +103,6 @@ type DeleteUserResponse struct {
 
 // GetUsers gets a list of users.
 // queryValues may optionally contain Email, Status, StatusOK, Limit, Offset
-// 	https://context.io/docs/lite/users#get
 func (cioLite CioLite) GetUsers(queryValues GetUsersParams) ([]GetUsersResponse, error) {
 
 	// Make request
@@ -132,7 +122,6 @@ func (cioLite CioLite) GetUsers(queryValues GetUsersParams) ([]GetUsersResponse,
 }
 
 // GetUser get details about a given user.
-// 	https://context.io/docs/lite/users#id-get
 func (cioLite CioLite) GetUser(userID string) (GetUsersResponse, error) {
 
 	// Make request
@@ -158,7 +147,6 @@ func (cioLite CioLite) GetUser(userID string) (GetUsersResponse, error) {
 // and (if OAUTH) ProviderRefreshToken and ProviderConsumerKey,
 // and (if not OAUTH) Password, and may optionally contain MigrateAccountID,
 // FirstName, LastName, StatusCallbackURL
-// 	https://context.io/docs/lite/users#post
 func (cioLite CioLite) CreateUser(formValues CreateUserParams) (CreateUserResponse, error) {
 
 	// Make request
@@ -179,7 +167,6 @@ func (cioLite CioLite) CreateUser(formValues CreateUserParams) (CreateUserRespon
 
 // ModifyUser modifies a given user.
 // formValues requires FirstName, LastName
-// 	https://context.io/docs/lite/users#id-post
 func (cioLite CioLite) ModifyUser(userID string, formValues ModifyUserParams) (ModifyUserResponse, error) {
 
 	// Make request
@@ -200,7 +187,6 @@ func (cioLite CioLite) ModifyUser(userID string, formValues ModifyUserParams) (M
 }
 
 // DeleteUser removes a given user.
-// 	https://context.io/docs/lite/users#id-delete
 func (cioLite CioLite) DeleteUser(userID string) (DeleteUserResponse, error) {
 
 	// Make request

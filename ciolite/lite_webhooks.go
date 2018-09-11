@@ -1,13 +1,12 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/webhooks
+// Api functions that support: webhooks
 
 import (
 	"fmt"
 )
 
 // GetWebhooks gets listings of Webhooks configured for the application.
-// 	https://context.io/docs/lite/webhooks#get
 func (cioLite CioLite) GetWebhooks() ([]GetUsersWebhooksResponse, error) {
 
 	// Make request
@@ -26,7 +25,6 @@ func (cioLite CioLite) GetWebhooks() ([]GetUsersWebhooksResponse, error) {
 }
 
 // GetWebhook gets the properties of a given Webhook.
-// 	https://context.io/docs/lite/webhooks#id-get
 func (cioLite CioLite) GetWebhook(webhookID string) (GetUsersWebhooksResponse, error) {
 
 	// Make request
@@ -49,7 +47,6 @@ func (cioLite CioLite) GetWebhook(webhookID string) (GetUsersWebhooksResponse, e
 // FilterTo, FilterFrom, FilterCC, FilterSubject, FilterThread,
 // FilterNewImportant, FilterFileName, FilterFolderAdded, FilterToDomain,
 // FilterFromDomain, IncludeBody, BodyType
-// 	https://context.io/docs/lite/webhooks#post
 func (cioLite CioLite) CreateWebhook(formValues CreateUserWebhookParams) (CreateUserWebhookResponse, error) {
 
 	// Make request
@@ -70,7 +67,6 @@ func (cioLite CioLite) CreateWebhook(formValues CreateUserWebhookParams) (Create
 
 // ModifyWebhook changes the properties of a given Webhook.
 // formValues requires Active
-// 	https://context.io/docs/lite/webhooks#id-post
 func (cioLite CioLite) ModifyWebhook(webhookID string, formValues ModifyUserWebhookParams) (ModifyWebhookResponse, error) {
 
 	// Make request
@@ -90,7 +86,6 @@ func (cioLite CioLite) ModifyWebhook(webhookID string, formValues ModifyUserWebh
 }
 
 // DeleteWebhookAccount cancels a Webhook.
-// 	https://context.io/docs/lite/webhooks#id-delete
 func (cioLite CioLite) DeleteWebhookAccount(webhookID string) (DeleteWebhookResponse, error) {
 
 	// Make request

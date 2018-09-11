@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/email_accounts/folders
+// Api functions that support: users/email_accounts/folders
 
 import (
 	"fmt"
@@ -11,15 +11,12 @@ import (
 
 // GetUserEmailAccountsFoldersParams query values data struct.
 // Optional: IncludeNamesOnly.
-// 	https://context.io/docs/lite/users/email_accounts/folders#get
 type GetUserEmailAccountsFoldersParams struct {
 	// Optional:
 	IncludeNamesOnly bool `json:"include_names_only,omitempty"`
 }
 
 // GetUsersEmailAccountFoldersResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts/folders#get
-// 	https://context.io/docs/lite/users/email_accounts/folders#id-get
 type GetUsersEmailAccountFoldersResponse struct {
 	Name             string `json:"name,omitempty"`
 	SymbolicName     string `json:"symbolic_name,omitempty"`
@@ -31,28 +28,18 @@ type GetUsersEmailAccountFoldersResponse struct {
 
 // EmailAccountFolderDelimiterParam query values data struct.
 // Optional: Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders#id-get
-// 	https://context.io/docs/lite/users/email_accounts/folders#id-post
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/attachments#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/attachments#id-get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/flags#get
-//  https://context.io/docs/lite/users/email_accounts/folders/messages/raw#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/read#post
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/read#delete
 type EmailAccountFolderDelimiterParam struct {
 	// Optional:
 	Delimiter string `json:"delimiter,omitempty"`
 }
 
 // CreateEmailAccountFolderResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts/folders#id-post
 type CreateEmailAccountFolderResponse struct {
 	Success bool `json:"success,omitempty"`
 }
 
 // GetUserEmailAccountsFolders gets a list of folders in an email account.
 // queryValues may optionally contain IncludeNamesOnly
-// 	https://context.io/docs/lite/users/email_accounts/folders#get
 func (cioLite CioLite) GetUserEmailAccountsFolders(userID string, label string, queryValues GetUserEmailAccountsFoldersParams) ([]GetUsersEmailAccountFoldersResponse, error) {
 
 	// Make request
@@ -75,7 +62,6 @@ func (cioLite CioLite) GetUserEmailAccountsFolders(userID string, label string, 
 
 // GetUserEmailAccountFolder gets information about a given folder.
 // queryValues may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders#id-get
 func (cioLite CioLite) GetUserEmailAccountFolder(userID string, label string, folder string, queryValues EmailAccountFolderDelimiterParam) (GetUsersEmailAccountFoldersResponse, error) {
 
 	// Make request
@@ -99,7 +85,6 @@ func (cioLite CioLite) GetUserEmailAccountFolder(userID string, label string, fo
 // CreateUserEmailAccountFolder create a folder on an email account.
 // This call will fail if the folder already exists.
 // queryValues may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders#id-post
 func (cioLite CioLite) CreateUserEmailAccountFolder(userID string, label string, folder string, formValues EmailAccountFolderDelimiterParam) (CreateEmailAccountFolderResponse, error) {
 
 	// Make request

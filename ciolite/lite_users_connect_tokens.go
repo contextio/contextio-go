@@ -1,13 +1,12 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/connect_tokens
+// Api functions that support: users/connect_tokens
 
 import (
 	"fmt"
 )
 
 // GetUserConnectTokens gets a list of connect tokens created for a user.
-// 	https://context.io/docs/lite/users/connect_tokens#get
 func (cioLite CioLite) GetUserConnectTokens(userID string) ([]GetConnectTokenResponse, error) {
 
 	// Make request
@@ -27,7 +26,6 @@ func (cioLite CioLite) GetUserConnectTokens(userID string) ([]GetConnectTokenRes
 }
 
 // GetUserConnectToken gets information about a given connect token for a specific user.
-// 	https://context.io/docs/lite/users/connect_tokens#id-get
 func (cioLite CioLite) GetUserConnectToken(userID string, token string) (GetConnectTokenResponse, error) {
 
 	// Make request
@@ -49,7 +47,6 @@ func (cioLite CioLite) GetUserConnectToken(userID string, token string) (GetConn
 // CreateUserConnectToken creates and obtains a new connect_token for a specific user.
 // formValues requires CallbackURL, and may optionally have
 // Email, FirstName, LastName, StatusCallbackURL
-// 	https://context.io/docs/lite/users/connect_tokens#post
 func (cioLite CioLite) CreateUserConnectToken(userID string, formValues CreateConnectTokenParams) (CreateConnectTokenResponse, error) {
 
 	// Make request
@@ -70,7 +67,6 @@ func (cioLite CioLite) CreateUserConnectToken(userID string, formValues CreateCo
 }
 
 // DeleteUserConnectToken removes a given connect token for a specific user.
-// 	https://context.io/docs/lite/users/connect_tokens#id-delete
 func (cioLite CioLite) DeleteUserConnectToken(userID string, token string) (DeleteConnectTokenResponse, error) {
 
 	// Make request

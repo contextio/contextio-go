@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/email_accounts/folders/messages/read
+// Api functions that support: users/email_accounts/folders/messages/read
 
 import (
 	"fmt"
@@ -8,15 +8,12 @@ import (
 )
 
 // UserEmailAccountsFolderMessageReadResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/read#post
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/read#delete
 type UserEmailAccountsFolderMessageReadResponse struct {
 	Success bool `json:"success,omitempty"`
 }
 
 // MarkUserEmailAccountsFolderMessageRead marks the message as read.
 // formValues may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/read#post
 func (cioLite CioLite) MarkUserEmailAccountsFolderMessageRead(userID string, label string, folder string, messageID string, formValues EmailAccountFolderDelimiterParam) (UserEmailAccountsFolderMessageReadResponse, error) {
 
 	// Make request
@@ -39,7 +36,6 @@ func (cioLite CioLite) MarkUserEmailAccountsFolderMessageRead(userID string, lab
 
 // MarkUserEmailAccountsFolderMessageUnRead marks the message as unread.
 // formValues may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/read#delete
 func (cioLite CioLite) MarkUserEmailAccountsFolderMessageUnRead(userID string, label string, folder string, messageID string, formValues EmailAccountFolderDelimiterParam) (UserEmailAccountsFolderMessageReadResponse, error) {
 
 	// Make request

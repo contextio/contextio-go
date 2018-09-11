@@ -1,9 +1,8 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/app/status_callback_url
+// Api functions that support: status_callback_url
 
 // GetStatusCallbackURLResponse data struct
-// 	https://context.io/docs/app/status_callback_url#get
 type GetStatusCallbackURLResponse struct {
 	StatusCallbackURL string `json:"status_callback_url,omitempty"`
 	ResourceURL       string `json:"resource_url,omitempty"`
@@ -11,20 +10,16 @@ type GetStatusCallbackURLResponse struct {
 
 // CreateStatusCallbackURLParams form values data struct.
 // Requires: StatusCallbackURL
-// 	https://context.io/docs/app/status_callback_url#post
 type CreateStatusCallbackURLParams struct {
 	StatusCallbackURL string `json:"status_callback_url,omitempty"`
 }
 
 // CreateDeleteStatusCallbackURLResponse data struct
-// 	https://context.io/docs/app/status_callback_url#post
-// 	https://context.io/docs/app/status_callback_url#delete
 type CreateDeleteStatusCallbackURLResponse struct {
 	Success bool `json:"success,omitempty"`
 }
 
 // GetStatusCallbackURL gets a list of app status callback url's.
-// 	https://context.io/docs/app/status_callback_url#get
 func (cioLite CioLite) GetStatusCallbackURL() (GetStatusCallbackURLResponse, error) {
 
 	// Make request
@@ -44,7 +39,6 @@ func (cioLite CioLite) GetStatusCallbackURL() (GetStatusCallbackURLResponse, err
 
 // CreateStatusCallbackURL create an app status callback url.
 // Requires: StatusCallbackURL
-// 	https://context.io/docs/app/status_callback_url#post
 func (cioLite CioLite) CreateStatusCallbackURL(formValues CreateStatusCallbackURLParams) (CreateDeleteStatusCallbackURLResponse, error) {
 
 	// Make request
@@ -64,7 +58,6 @@ func (cioLite CioLite) CreateStatusCallbackURL(formValues CreateStatusCallbackUR
 }
 
 // DeleteStatusCallbackURL removes an app status callback url.
-// 	https://context.io/docs/app/status_callback_url#delete
 func (cioLite CioLite) DeleteStatusCallbackURL() (CreateDeleteStatusCallbackURLResponse, error) {
 
 	// Make request

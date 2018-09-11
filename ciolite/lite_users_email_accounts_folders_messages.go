@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/email_accounts/folders/messages
+// Api functions that support: users/email_accounts/folders/messages
 
 import (
 	"bytes"
@@ -12,8 +12,6 @@ import (
 // GetUserEmailAccountsFolderMessageParams query values data struct.
 // Optional: Delimiter, IncludeBody, BodyType, IncludeHeaders, IncludeFlags,
 // and (for GetUserEmailAccountsFolderMessages only) Limit, Offset.
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 type GetUserEmailAccountsFolderMessageParams struct {
 	// Optional:
 	Delimiter    string `json:"delimiter,omitempty"`
@@ -30,8 +28,6 @@ type GetUserEmailAccountsFolderMessageParams struct {
 }
 
 // GetUsersEmailAccountFolderMessagesResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 type GetUsersEmailAccountFolderMessagesResponse struct {
 	MessageID   string `json:"message_id,omitempty"`
 	Subject     string `json:"subject,omitempty"`
@@ -57,8 +53,6 @@ type GetUsersEmailAccountFolderMessagesResponse struct {
 }
 
 // UsersEmailAccountFolderMessageAttachment embedded data struct within GetUsersEmailAccountFolderMessagesResponse
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 type UsersEmailAccountFolderMessageAttachment struct {
 	Type               string `json:"type,omitempty"`
 	FileName           string `json:"file_name,omitempty"`
@@ -72,8 +66,6 @@ type UsersEmailAccountFolderMessageAttachment struct {
 }
 
 // UsersEmailAccountFolderMessageBody embedded data struct within GetUsersEmailAccountFolderMessagesResponse
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 type UsersEmailAccountFolderMessageBody struct {
 	BodySection string `json:"body_section,omitempty"`
 	Type        string `json:"type,omitempty"`
@@ -83,8 +75,6 @@ type UsersEmailAccountFolderMessageBody struct {
 }
 
 // ListHeaders embedded data struct within GetUsersEmailAccountFolderMessagesResponse
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 type ListHeaders map[string]string
 
 // UnmarshalJSON is here because the empty state is an array in the json, and is a object/map when populated
@@ -104,8 +94,6 @@ func (m *ListHeaders) UnmarshalJSON(b []byte) error {
 }
 
 // PersonInfo embedded data struct within GetUsersEmailAccountFolderMessagesResponse and WebhookMessageData
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 type PersonInfo map[string]map[string]string
 
 // UnmarshalJSON is here because the empty state is an array in the json, and is a object/map when populated
@@ -125,9 +113,6 @@ func (m *PersonInfo) UnmarshalJSON(b []byte) error {
 }
 
 // Address embedded data struct within GetUsersEmailAccountFolderMessageAddresses and WebhookMessageDataAddresses
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
-// 	https://context.io/docs/lite/users/webhooks#callbacks
 type Address struct {
 	Email string `json:"email,omitempty"`
 	Name  string `json:"name,omitempty"`
@@ -152,8 +137,6 @@ func (m *Address) UnmarshalJSON(b []byte) error {
 }
 
 // GetUsersEmailAccountFolderMessageAddresses data struct within GetUsersEmailAccountFolderMessagesResponse
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 type GetUsersEmailAccountFolderMessageAddresses struct {
 	From    []Address `json:"from,omitempty"`
 	To      []Address `json:"to,omitempty"`
@@ -183,7 +166,6 @@ func (m *GetUsersEmailAccountFolderMessageAddresses) UnmarshalJSON(b []byte) err
 
 // MoveUserEmailAccountFolderMessageParams form values data struct.
 // Requires: NewFolderID, and may optionally contain Delimiter.
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-put
 type MoveUserEmailAccountFolderMessageParams struct {
 	// Required:
 	NewFolderID string `json:"new_folder_id"`
@@ -192,7 +174,6 @@ type MoveUserEmailAccountFolderMessageParams struct {
 }
 
 // MoveUserEmailAccountFolderMessageResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-put
 type MoveUserEmailAccountFolderMessageResponse struct {
 	Success bool `json:"success,omitempty"`
 }
@@ -200,7 +181,6 @@ type MoveUserEmailAccountFolderMessageResponse struct {
 // GetUserEmailAccountsFolderMessages gets listings of email messages for a user.
 // queryValues may optionally contain Delimiter, IncludeBody, BodyType,
 // IncludeHeaders, IncludeFlags, Limit, Offset
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#get
 func (cioLite CioLite) GetUserEmailAccountsFolderMessages(userID string, label string, folder string, queryValues GetUserEmailAccountsFolderMessageParams) ([]GetUsersEmailAccountFolderMessagesResponse, error) {
 
 	// Make request
@@ -223,7 +203,6 @@ func (cioLite CioLite) GetUserEmailAccountsFolderMessages(userID string, label s
 
 // GetUserEmailAccountFolderMessage gets file, contact and other information about a given email message.
 // queryValues may optionally contain Delimiter, IncludeBody, BodyType, IncludeHeaders, IncludeFlags
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-get
 func (cioLite CioLite) GetUserEmailAccountFolderMessage(userID string, label string, folder string, messageID string, queryValues GetUserEmailAccountsFolderMessageParams) (GetUsersEmailAccountFolderMessagesResponse, error) {
 
 	// Make request
@@ -246,7 +225,6 @@ func (cioLite CioLite) GetUserEmailAccountFolderMessage(userID string, label str
 
 // MoveUserEmailAccountFolderMessage moves a message.
 // formValues requires NewFolderID, and may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages#id-put
 func (cioLite CioLite) MoveUserEmailAccountFolderMessage(userID string, label string, folder string, messageID string, queryValues MoveUserEmailAccountFolderMessageParams) (MoveUserEmailAccountFolderMessageResponse, error) {
 
 	// Make request

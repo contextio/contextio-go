@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/connect_tokens
+// Api functions that support: connect_tokens
 
 import (
 	"fmt"

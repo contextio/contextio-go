@@ -1,17 +1,15 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/discovery
+// Api functions that support: discovery
 
 // GetDiscoveryParams query values data struct.
 // Requires Email.
-// 	https://context.io/docs/lite/discovery#get
 type GetDiscoveryParams struct {
 	// Required:
 	Email string `json:"email"`
 }
 
 // GetDiscoveryResponse data struct
-// 	https://context.io/docs/lite/discovery#get
 type GetDiscoveryResponse struct {
 	Email string `json:"email,omitempty"`
 	Type  string `json:"type,omitempty"`
@@ -27,7 +25,6 @@ type GetDiscoveryResponse struct {
 }
 
 // GetDiscoveryIMAPResponse embedded data struct
-// 	https://context.io/docs/lite/discovery#get
 type GetDiscoveryIMAPResponse struct {
 	Server   string `json:"server,omitempty"`
 	Username string `json:"username,omitempty"`
@@ -40,7 +37,6 @@ type GetDiscoveryIMAPResponse struct {
 
 // GetDiscovery attempts to discover connection settings for a given email address.
 // queryValues requires Email to be set.
-// 	https://context.io/docs/lite/discovery#get
 func (cioLite CioLite) GetDiscovery(queryValues GetDiscoveryParams) (GetDiscoveryResponse, error) {
 
 	// Make request

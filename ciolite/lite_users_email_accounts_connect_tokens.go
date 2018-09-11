@@ -1,13 +1,12 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/email_accounts/connect_tokens
+// Api functions that support: users/email_accounts/connect_tokens
 
 import (
 	"fmt"
 )
 
 // GetUserEmailAccountConnectTokens gets a list of connect tokens created for a user email account.
-// 	https://context.io/docs/lite/users/email_accounts/connect_tokens#get
 func (cioLite CioLite) GetUserEmailAccountConnectTokens(userID string, label string) ([]GetConnectTokenResponse, error) {
 
 	// Make request
@@ -27,7 +26,6 @@ func (cioLite CioLite) GetUserEmailAccountConnectTokens(userID string, label str
 }
 
 // GetUserEmailAccountConnectToken gets information about a given connect token for a specific user email account.
-// 	https://context.io/docs/lite/users/email_accounts/connect_tokens#id-get
 func (cioLite CioLite) GetUserEmailAccountConnectToken(userID string, label string, token string) (GetConnectTokenResponse, error) {
 
 	// Make request
@@ -48,7 +46,6 @@ func (cioLite CioLite) GetUserEmailAccountConnectToken(userID string, label stri
 
 // CreateUserEmailAccountConnectToken creates and obtains a new connect_token for a specific user email account.
 // formValues requires CallbackURL
-// 	https://context.io/docs/lite/users/email_accounts/connect_tokens#post
 func (cioLite CioLite) CreateUserEmailAccountConnectToken(userID string, label string, formValues CreateConnectTokenParams) (CreateConnectTokenResponse, error) {
 
 	// Make request
@@ -69,7 +66,6 @@ func (cioLite CioLite) CreateUserEmailAccountConnectToken(userID string, label s
 }
 
 // DeleteUserEmailAccountConnectToken removes a given connect token for a specific user email account.
-// 	https://context.io/docs/lite/users/email_accounts/connect_tokens#id-delete
 func (cioLite CioLite) DeleteUserEmailAccountConnectToken(userID string, label string, token string) (DeleteConnectTokenResponse, error) {
 
 	// Make request

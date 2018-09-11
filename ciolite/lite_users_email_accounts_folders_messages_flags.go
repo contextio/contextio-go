@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/email_accounts/folders/messages/flags
+// Api functions that support: users/email_accounts/folders/messages/flags
 
 import (
 	"fmt"
@@ -8,7 +8,6 @@ import (
 )
 
 // GetUserEmailAccountsFolderMessageFlagsResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/flags#get
 type GetUserEmailAccountsFolderMessageFlagsResponse struct {
 	ResourceURL string `json:"resource_url,omitempty"`
 
@@ -16,7 +15,6 @@ type GetUserEmailAccountsFolderMessageFlagsResponse struct {
 }
 
 // UserEmailAccountsFolderMessageFlags embedded data struct within GetUserEmailAccountsFolderMessageFlagsResponse
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/flags#get
 type UserEmailAccountsFolderMessageFlags struct {
 	Read     bool `json:"read,omitempty"`
 	Answered bool `json:"answered,omitempty"`
@@ -26,7 +24,6 @@ type UserEmailAccountsFolderMessageFlags struct {
 
 // GetUserEmailAccountsFolderMessageFlags returns the message flags.
 // queryValues may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/flags#get
 func (cioLite CioLite) GetUserEmailAccountsFolderMessageFlags(userID string, label string, folder string, messageID string, queryValues EmailAccountFolderDelimiterParam) (GetUserEmailAccountsFolderMessageFlagsResponse, error) {
 
 	// Make request

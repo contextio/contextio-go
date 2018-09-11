@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/email_accounts/folders/messages/attachments
+// Api functions that support: users/email_accounts/folders/messages/attachments
 
 import (
 	"fmt"
@@ -8,8 +8,6 @@ import (
 )
 
 // GetUserEmailAccountsFolderMessageAttachmentsResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/attachments#get
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/attachments#id-get
 type GetUserEmailAccountsFolderMessageAttachmentsResponse struct {
 	Type               string `json:"type,omitempty"`
 	FileName           string `json:"file_name,omitempty"`
@@ -24,7 +22,6 @@ type GetUserEmailAccountsFolderMessageAttachmentsResponse struct {
 
 // GetUserEmailAccountsFolderMessageAttachments gets listings of email attachments.
 // queryValues may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/attachments#get
 func (cioLite CioLite) GetUserEmailAccountsFolderMessageAttachments(userID string, label string, folder string, messageID string, queryValues EmailAccountFolderDelimiterParam) ([]GetUserEmailAccountsFolderMessageAttachmentsResponse, error) {
 
 	// Make request
@@ -47,7 +44,6 @@ func (cioLite CioLite) GetUserEmailAccountsFolderMessageAttachments(userID strin
 
 // GetUserEmailAccountsFolderMessageAttachment retrieves an email attachment.
 // queryValues may optionally contain Delimiter
-// 	https://context.io/docs/lite/users/email_accounts/folders/messages/attachments#id-get
 func (cioLite CioLite) GetUserEmailAccountsFolderMessageAttachment(userID string, label string, folder string, messageID string, attachmentID string, queryValues EmailAccountFolderDelimiterParam) (GetUserEmailAccountsFolderMessageAttachmentsResponse, error) {
 
 	// Make request

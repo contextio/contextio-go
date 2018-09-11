@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/email_accounts
+// Api functions that support: users/email_accounts
 
 import (
 	"fmt"
@@ -11,7 +11,6 @@ import (
 
 // GetUserEmailAccountsParams query values data struct.
 // Optional: Status, StatusOK
-// 	https://context.io/docs/lite/users#get
 type GetUserEmailAccountsParams struct {
 	// Optional:
 	Status   string `json:"status,omitempty"`
@@ -19,8 +18,6 @@ type GetUserEmailAccountsParams struct {
 }
 
 // GetUsersEmailAccountsResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts#get
-// 	https://context.io/docs/lite/users/email_accounts#id-get
 type GetUsersEmailAccountsResponse struct {
 	Status             string `json:"status,omitempty"`
 	ResourceURL        string `json:"resource_url,omitempty"`
@@ -36,7 +33,6 @@ type GetUsersEmailAccountsResponse struct {
 }
 
 // CreateEmailAccountResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts#post
 type CreateEmailAccountResponse struct {
 	Status      string `json:"stats,omitempty"`
 	Label       string `json:"label,omitempty"`
@@ -46,7 +42,6 @@ type CreateEmailAccountResponse struct {
 // ModifyUserEmailAccountParams form values data struct.
 // formValues optionally may contain Status, ForceStatusCheck, Password,
 // ProviderRefreshToken, ProviderConsumerKey, StatusCallbackURL
-// 	https://context.io/docs/lite/users/email_accounts#id-post
 type ModifyUserEmailAccountParams struct {
 	// Optional:
 	Status               string `json:"status,omitempty"`
@@ -58,7 +53,6 @@ type ModifyUserEmailAccountParams struct {
 }
 
 // ModifyEmailAccountResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts#id-post
 type ModifyEmailAccountResponse struct {
 	Success       bool   `json:"success,omitempty"`
 	ResourceURL   string `json:"resource_url,omitempty"`
@@ -67,7 +61,6 @@ type ModifyEmailAccountResponse struct {
 }
 
 // DeleteEmailAccountResponse data struct
-// 	https://context.io/docs/lite/users/email_accounts#id-delete
 type DeleteEmailAccountResponse struct {
 	Success      bool   `json:"success,omitempty"`
 	ResourceURL  string `json:"resource_url,omitempty"`
@@ -75,8 +68,6 @@ type DeleteEmailAccountResponse struct {
 }
 
 // StatusCallback data struct that will be received from CIO when a user's status changes
-// 	https://context.io/docs/lite/users/email_accounts#post
-// 	https://context.io/docs/lite/users/email_accounts#id-post
 type StatusCallback struct {
 	AccountID      string `json:"account_id,omitempty"`
 	UserID         string `json:"user_id,omitempty"`
@@ -93,7 +84,6 @@ type StatusCallback struct {
 
 // GetUserEmailAccounts gets a list of email accounts assigned to a user.
 // queryValues may optionally contain Status, StatusOK
-// 	https://context.io/docs/lite/users/email_accounts#get
 func (cioLite CioLite) GetUserEmailAccounts(userID string, queryValues GetUserEmailAccountsParams) ([]GetUsersEmailAccountsResponse, error) {
 
 	// Make request
@@ -114,7 +104,6 @@ func (cioLite CioLite) GetUserEmailAccounts(userID string, queryValues GetUserEm
 }
 
 // GetUserEmailAccount gets the parameters and status for an email account.
-// 	https://context.io/docs/lite/users/email_accounts#id-get
 // Status can be one of: OK, CONNECTION_IMPOSSIBLE, INVALID_CREDENTIALS, TEMP_DISABLED, DISABLED
 func (cioLite CioLite) GetUserEmailAccount(userID string, label string) (GetUsersEmailAccountsResponse, error) {
 
@@ -140,7 +129,6 @@ func (cioLite CioLite) GetUserEmailAccount(userID string, label string) (GetUser
 // and (if OAUTH) ProviderRefreshToken and ProviderConsumerKey,
 // and (if not OAUTH) Password,
 // and may optionally contain StatusCallbackURL
-// 	https://context.io/docs/lite/users/email_accounts#post
 func (cioLite CioLite) CreateUserEmailAccount(userID string, formValues CreateUserParams) (CreateEmailAccountResponse, error) {
 
 	// Make request
@@ -163,7 +151,6 @@ func (cioLite CioLite) CreateUserEmailAccount(userID string, formValues CreateUs
 // ModifyUserEmailAccount modifies an email account on a given user.
 // formValues optionally may contain Status, ForceStatusCheck, Password,
 // ProviderRefreshToken, ProviderConsumerKey, StatusCallbackURL
-// 	https://context.io/docs/lite/users/email_accounts#id-post
 func (cioLite CioLite) ModifyUserEmailAccount(userID string, label string, formValues ModifyUserEmailAccountParams) (ModifyEmailAccountResponse, error) {
 
 	// Make request
@@ -185,7 +172,6 @@ func (cioLite CioLite) ModifyUserEmailAccount(userID string, label string, formV
 }
 
 // DeleteUserEmailAccount deletes an email account of a user.
-// 	https://context.io/docs/lite/users/email_accounts#id-delete
 func (cioLite CioLite) DeleteUserEmailAccount(userID string, label string) (DeleteEmailAccountResponse, error) {
 
 	// Make request

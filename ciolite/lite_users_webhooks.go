@@ -1,6 +1,6 @@
 package ciolite
 
-// Api functions that support: https://context.io/docs/lite/users/webhooks
+// Api functions that support: users/webhooks
 
 import (
 	"bytes"
@@ -10,8 +10,6 @@ import (
 )
 
 // GetUsersWebhooksResponse data struct
-// 	https://context.io/docs/lite/users/webhooks#get
-// 	https://context.io/docs/lite/users/webhooks#id-get
 type GetUsersWebhooksResponse struct {
 	CallbackURL        string `json:"callback_url,omitempty"`
 	WebhookID          string `json:"webhook_id,omitempty"`
@@ -42,7 +40,6 @@ type GetUsersWebhooksResponse struct {
 // FilterTo, FilterFrom, FilterCC, FilterSubject, FilterThread,
 // FilterNewImportant, FilterFileName, FilterFolderAdded, FilterToDomain,
 // FilterFromDomain, IncludeBody, BodyType
-// 	https://context.io/docs/lite/users/webhooks#post
 type CreateUserWebhookParams struct {
 	// Requires:
 	CallbackURL string `json:"callback_url"`
@@ -67,7 +64,6 @@ type CreateUserWebhookParams struct {
 }
 
 // CreateUserWebhookResponse data struct
-// 	https://context.io/docs/lite/users/webhooks#post
 type CreateUserWebhookResponse struct {
 	WebhookID   string `json:"webhook_id,omitempty"`
 	ResourceURL string `json:"resource_url,omitempty"`
@@ -77,14 +73,12 @@ type CreateUserWebhookResponse struct {
 
 // ModifyUserWebhookParams form values data struct.
 // formValues requires Active
-// 	https://context.io/docs/lite/users/webhooks#id-post
 type ModifyUserWebhookParams struct {
 	// Required:
 	Active bool `json:"active"`
 }
 
 // ModifyWebhookResponse data struct
-// 	https://context.io/docs/lite/users/webhooks#id-post
 type ModifyWebhookResponse struct {
 	ResourceURL string `json:"resource_url,omitempty"`
 
@@ -92,13 +86,11 @@ type ModifyWebhookResponse struct {
 }
 
 // DeleteWebhookResponse data struct
-// 	https://context.io/docs/lite/users/webhooks#id-delete
 type DeleteWebhookResponse struct {
 	Success bool `json:"success,omitempty"`
 }
 
 // WebhookCallback data struct that will be received from CIO
-// 	https://context.io/docs/lite/users/webhooks#callbacks
 type WebhookCallback struct {
 	AccountID string `json:"account_id,omitempty"`
 	WebhookID string `json:"webhook_id,omitempty"`
@@ -114,7 +106,6 @@ type WebhookCallback struct {
 }
 
 // WebhookMessageData data struct within WebhookCallback
-// 	https://context.io/docs/lite/users/webhooks#callbacks
 type WebhookMessageData struct {
 	MessageID string `json:"message_id,omitempty"`
 	Subject   string `json:"subject,omitempty"`
@@ -143,7 +134,6 @@ type WebhookMessageData struct {
 }
 
 // WebhookBody embedded data struct within WebhookMessageData
-// 	https://context.io/docs/lite/users/webhooks#callbacks
 type WebhookBody struct {
 	Type        string `json:"type,omitempty"`
 	Charset     string `json:"charset,omitempty"`
@@ -152,7 +142,6 @@ type WebhookBody struct {
 }
 
 // WebhookMessageDataFlags embedded data struct within WebhookMessageData
-// 	https://context.io/docs/lite/users/webhooks#callbacks
 type WebhookMessageDataFlags struct {
 	Flagged  bool `json:"flagged,omitempty"`
 	Answered bool `json:"answered,omitempty"`
@@ -161,7 +150,6 @@ type WebhookMessageDataFlags struct {
 }
 
 // WebhookMessageDataAccount embedded data struct within WebhookMessageData
-// 	https://context.io/docs/lite/users/webhooks#callbacks
 type WebhookMessageDataAccount struct {
 	Label       string `json:"label,omitempty"`
 	Folder      string `json:"folder,omitempty"`
@@ -170,7 +158,6 @@ type WebhookMessageDataAccount struct {
 }
 
 // WebhookMessageDataFile embedded data struct within WebhookMessageData
-// 	https://context.io/docs/lite/users/webhooks#callbacks
 type WebhookMessageDataFile struct {
 	ContentID          string `json:"content_id,omitempty"`
 	Type               string `json:"type,omitempty"`
@@ -190,7 +177,6 @@ type WebhookMessageDataFile struct {
 }
 
 // WebhookMessageDataAddresses struct within WebhookMessageData
-// 	https://context.io/docs/lite/users/webhooks#callbacks
 type WebhookMessageDataAddresses struct {
 	From       Address   `json:"from,omitempty"`
 	To         []Address `json:"to,omitempty"`
@@ -220,7 +206,6 @@ func (m *WebhookMessageDataAddresses) UnmarshalJSON(b []byte) error {
 }
 
 // GetUserWebhooks gets listings of Webhooks configured for a user.
-// 	https://context.io/docs/lite/users/webhooks#get
 func (cioLite CioLite) GetUserWebhooks(userID string) ([]GetUsersWebhooksResponse, error) {
 
 	// Make request
@@ -240,7 +225,6 @@ func (cioLite CioLite) GetUserWebhooks(userID string) ([]GetUsersWebhooksRespons
 }
 
 // GetUserWebhook gets the properties of a given Webhook.
-// 	https://context.io/docs/lite/users/webhooks#id-get
 func (cioLite CioLite) GetUserWebhook(userID string, webhookID string) (GetUsersWebhooksResponse, error) {
 
 	// Make request
@@ -264,7 +248,6 @@ func (cioLite CioLite) GetUserWebhook(userID string, webhookID string) (GetUsers
 // FilterTo, FilterFrom, FilterCC, FilterSubject, FilterThread,
 // FilterNewImportant, FilterFileName, FilterFolderAdded, FilterToDomain,
 // FilterFromDomain, IncludeBody, BodyType
-// 	https://context.io/docs/lite/users/webhooks#post
 func (cioLite CioLite) CreateUserWebhook(userID string, formValues CreateUserWebhookParams) (CreateUserWebhookResponse, error) {
 
 	// Make request
@@ -286,7 +269,6 @@ func (cioLite CioLite) CreateUserWebhook(userID string, formValues CreateUserWeb
 
 // ModifyUserWebhook changes the properties of a given Webhook.
 // formValues requires Active
-// 	https://context.io/docs/lite/users/webhooks#id-post
 func (cioLite CioLite) ModifyUserWebhook(userID string, webhookID string, formValues ModifyUserWebhookParams) (ModifyWebhookResponse, error) {
 
 	// Make request
@@ -307,7 +289,6 @@ func (cioLite CioLite) ModifyUserWebhook(userID string, webhookID string, formVa
 }
 
 // DeleteUserWebhookAccount cancels a Webhook.
-// 	https://context.io/docs/lite/users/webhooks#id-delete
 func (cioLite CioLite) DeleteUserWebhookAccount(userID string, webhookID string) (DeleteWebhookResponse, error) {
 
 	// Make request
