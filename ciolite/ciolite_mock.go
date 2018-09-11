@@ -511,6 +511,32 @@ func (mr *MockInterfaceMockRecorder) SafeCreateUserEmailAccountFolder(userID, la
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SafeCreateUserEmailAccountFolder", reflect.TypeOf((*MockInterface)(nil).SafeCreateUserEmailAccountFolder), userID, label, folder, formValues)
 }
 
+// GetUserEmailAccountsMessages mocks base method
+func (m *MockInterface) GetUserEmailAccountsMessages(userID, label string, queryValues GetUserEmailAccountsMessageParams) ([]GetUsersEmailAccountMessagesResponse, error) {
+	ret := m.ctrl.Call(m, "GetUserEmailAccountsMessages", userID, label, queryValues)
+	ret0, _ := ret[0].([]GetUsersEmailAccountMessagesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUserEmailAccountsMessages indicates an expected call of GetUserEmailAccountsMessages
+func (mr *MockInterfaceMockRecorder) GetUserEmailAccountsMessages(userID, label, queryValues interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserEmailAccountsMessages", reflect.TypeOf((*MockInterface)(nil).GetUserEmailAccountsMessages), userID, label, queryValues)
+}
+
+// GetUserEmailAccountMessage mocks base method
+func (m *MockInterface) GetUserEmailAccountMessage(userID, label, messageID string, queryValues GetUserEmailAccountsMessageParams) (GetUsersEmailAccountMessagesResponse, error) {
+	ret := m.ctrl.Call(m, "GetUserEmailAccountMessage", userID, label, messageID, queryValues)
+	ret0, _ := ret[0].(GetUsersEmailAccountMessagesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUserEmailAccountMessage indicates an expected call of GetUserEmailAccountMessage
+func (mr *MockInterfaceMockRecorder) GetUserEmailAccountMessage(userID, label, messageID, queryValues interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserEmailAccountMessage", reflect.TypeOf((*MockInterface)(nil).GetUserEmailAccountMessage), userID, label, messageID, queryValues)
+}
+
 // GetUserEmailAccounts mocks base method
 func (m *MockInterface) GetUserEmailAccounts(userID string, queryValues GetUserEmailAccountsParams) ([]GetUsersEmailAccountsResponse, error) {
 	ret := m.ctrl.Call(m, "GetUserEmailAccounts", userID, queryValues)

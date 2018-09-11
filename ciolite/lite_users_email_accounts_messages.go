@@ -70,7 +70,7 @@ type UsersEmailAccountMessageBody struct {
 	BodySection string `json:"body_section,omitempty"`
 	Type        string `json:"type,omitempty"`
 	Encoding    string `json:"encoding,omitempty"`
-	Content     string `json:"string,omitempty"`
+	Content     string `json:"content,omitempty"`
 
 	Size int `json:"size,omitempty"`
 }

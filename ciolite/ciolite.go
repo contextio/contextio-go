@@ -128,6 +128,9 @@ type Interface interface {
 	CreateUserEmailAccountFolder(userID string, label string, folder string, formValues EmailAccountFolderDelimiterParam) (CreateEmailAccountFolderResponse, error)
 	SafeCreateUserEmailAccountFolder(userID string, label string, folder string, formValues EmailAccountFolderDelimiterParam) (bool, error)
 
+	GetUserEmailAccountsMessages(userID string, label string, queryValues GetUserEmailAccountsMessageParams) ([]GetUsersEmailAccountMessagesResponse, error)
+	GetUserEmailAccountMessage(userID string, label string, messageID string, queryValues GetUserEmailAccountsMessageParams) (GetUsersEmailAccountMessagesResponse, error)
+
 	GetUserEmailAccounts(userID string, queryValues GetUserEmailAccountsParams) ([]GetUsersEmailAccountsResponse, error)
 	GetUserEmailAccount(userID string, label string) (GetUsersEmailAccountsResponse, error)
 	CreateUserEmailAccount(userID string, formValues CreateUserParams) (CreateEmailAccountResponse, error)
