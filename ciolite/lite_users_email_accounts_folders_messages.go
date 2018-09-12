@@ -59,7 +59,7 @@ type UsersEmailAccountFolderMessageAttachment struct {
 	BodySection        string `json:"body_section,omitempty"`
 	ContentDisposition string `json:"content_disposition,omitempty"`
 	MessageID          string `json:"message_id,omitempty"`
-	//XAttachmentID      string `json:"x_attachment_id,omitempty"` // Format is sometimes a string, sometimes an array of strings?
+	XAttachmentID      string `json:"x_attachment_id,omitempty"`
 
 	Size         int `json:"size,omitempty"`
 	AttachmentID int `json:"attachment_id,omitempty"`

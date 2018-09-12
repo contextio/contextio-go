@@ -3,8 +3,6 @@ package ciolite
 // Api functions that support: users/email_accounts/folders/messages/attachments
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
 	"net/url"
 )
@@ -21,29 +19,7 @@ type GetUserEmailAccountsFolderMessageAttachmentsResponse struct {
 	Size         int `json:"size,omitempty"`
 	AttachmentID int `json:"attachment_id,omitempty"`
 
-	AttachmentLink string
-}
-
-// UnmarshalJSON is here because the `as_link` response is a raw response with an http link
-func (m *GetUserEmailAccountsFolderMessageAttachmentsResponse) UnmarshalJSON(b []byte) error {
-
-	// json response  should start with an open object
-	if !bytes.HasPrefix(b, []byte("{")) {
-		*m = GetUserEmailAccountsFolderMessageAttachmentsResponse{}
-		m.AttachmentLink = string(b[:])
-		return nil
-	}
-
-	// avoid recursion
-	type temp GetUserEmailAccountsFolderMessageAttachmentsResponse
-	var tmp temp
-
-	if err := json.Unmarshal(b, &tmp); err != nil {
-		return err
-	}
-
-	*m = GetUserEmailAccountsFolderMessageAttachmentsResponse(tmp)
-	return nil
+	AttachmentLink string `json:"link,omitempty"`
 }
 
 // GetUserEmailAccountsFolderMessageAttachments gets listings of email attachments.
