@@ -19,13 +19,14 @@ type GetUserEmailAccountsParams struct {
 
 // GetUsersEmailAccountsResponse data struct
 type GetUsersEmailAccountsResponse struct {
-	Status             string `json:"status,omitempty"`
-	ResourceURL        string `json:"resource_url,omitempty"`
-	Type               string `json:"type,omitempty"`
-	AuthenticationType string `json:"authentication_type,omitempty"`
-	Server             string `json:"server,omitempty"`
-	Label              string `json:"label,omitempty"`
-	Username           string `json:"username,omitempty"`
+	Status               string `json:"status,omitempty"`
+	ResourceURL          string `json:"resource_url,omitempty"`
+	Type                 string `json:"type,omitempty"`
+	AuthenticationType   string `json:"authentication_type,omitempty"`
+	Server               string `json:"server,omitempty"`
+	Label                string `json:"label,omitempty"`
+	Username             string `json:"username,omitempty"`
+	MailServiceAccountID string `json:"mailservice_account_id,omitempty"`
 
 	UseSSL bool `json:"use_ssl,omitempty"`
 
@@ -34,9 +35,10 @@ type GetUsersEmailAccountsResponse struct {
 
 // CreateEmailAccountResponse data struct
 type CreateEmailAccountResponse struct {
-	Status      string `json:"stats,omitempty"`
-	Label       string `json:"label,omitempty"`
-	ResourceURL string `json:"resource_url,omitempty"`
+	Status               string `json:"status,omitempty"`
+	Label                string `json:"label,omitempty"`
+	ResourceURL          string `json:"resource_url,omitempty"`
+	MailServiceAccountID string `json:"mailservice_account_id,omitempty"`
 }
 
 // ModifyUserEmailAccountParams form values data struct.
