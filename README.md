@@ -1,4 +1,4 @@
-# contextio-go
+# [DEPRECATED] - contextio-go
 [Context.IO](https://context.io/) API Golang Library
 
 This library is currently in BETA, and as such we make no promises; the use of this library is provided without warranty.
