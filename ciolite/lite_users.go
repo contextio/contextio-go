@@ -49,6 +49,7 @@ type CreateUserParams struct {
 	Type     string `json:"type"`
 	UseSSL   bool   `json:"use_ssl"`
 	Port     int    `json:"port"`
+	OriginIP string `json:"origin_ip"`
 
 	// Optional, but Required for OAUTH:
 	ProviderRefreshToken string `json:"provider_refresh_token,omitempty"`
