@@ -31,8 +31,14 @@ func (cio CioLite) doFormRequest(request clientRequest, result interface{}) erro
 	// but we can't get rid of url.QueryEscape because it turns / into %2F for delimited folder names
 	escapedPath := strings.Replace(request.Path, "+", "%20", -1)
 
-	// Construct the url
-	cioURL := cio.Host + escapedPath + queryString(request.QueryValues)
+	// Construct the url + add the API key
+	cioURL, err := url.Parse(cio.Host + escapedPath + queryString(request.QueryValues))
+	if err != nil {
+		return err
+	}
+	query := cioURL.Query()
+	query.Set("apikey", cio.apiKey)
+	cioURL.RawQuery = query.Encode()
 
 	// Construct the body
 	bodyValues := formValues(request.FormValues)
@@ -40,21 +46,20 @@ func (cio CioLite) doFormRequest(request clientRequest, result interface{}) erro
 
 	// Before-Request Hook Function (logging)
 	if cio.PreRequestHook != nil {
-		cio.PreRequestHook(request.UserID, request.AccountLabel, request.Method, cioURL, redactBodyValues(bodyValues))
+		cio.PreRequestHook(request.UserID, request.AccountLabel, request.Method, cioURL.String(), redactBodyValues(bodyValues))
 	}
 
 	var (
 		statusCode int
 		resBody    string
-		err        error
 	)
 
 	beforeAll := time.Now().UTC()
 	for i := 1; ; i++ {
 		beforeAttempt := time.Now().UTC()
-		statusCode, resBody, err = cio.createAndSendRequest(request, cioURL, bodyString, bodyValues, result)
+		statusCode, resBody, err = cio.createAndSendRequest(request, cioURL.String(), bodyString, bodyValues, result)
 		// After-Request Hook Function (logging)
-		if cio.PostRequestShouldRetryHook == nil || !cio.PostRequestShouldRetryHook(i, request.UserID, request.AccountLabel, request.Method, cioURL, statusCode, resBody, beforeAttempt, beforeAll, err) {
+		if cio.PostRequestShouldRetryHook == nil || !cio.PostRequestShouldRetryHook(i, request.UserID, request.AccountLabel, request.Method, cioURL.String(), statusCode, resBody, beforeAttempt, beforeAll, err) {
 			break
 		}
 	}
