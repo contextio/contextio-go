@@ -16,8 +16,11 @@ import (
 )
 
 const (
-	// DefaultHost is the default host of CIO Lite API
-	DefaultHost = "http://cio-api.default"
+	// InternalHost is the internal k8s service address for CIO
+	InternalHost = "http://cio-api.default"
+
+	// ExternalHost is the external DNS classic loadbalancer for CIO
+	ExternalHost = "https://api.context.io"
 
 	// DefaultRequestTimeout is the default timeout duration used on HTTP requests
 	DefaultRequestTimeout = 120 * time.Second
@@ -67,12 +70,17 @@ type CioLite struct {
 }
 
 // NewCioLite returns a CIO Lite struct (without a logger) for accessing the CIO Lite API.
-func NewCioLite(key string, secret string) CioLite {
+func NewCioLite(key string, secret string, internal bool) CioLite {
+
+	host := ExternalHost
+	if internal {
+		host = InternalHost
+	}
 
 	return CioLite{
 		apiKey:     key,
 		apiSecret:  secret,
-		Host:       DefaultHost,
+		Host:       host,
 		HTTPClient: &http.Client{Timeout: DefaultRequestTimeout},
 	}
 }

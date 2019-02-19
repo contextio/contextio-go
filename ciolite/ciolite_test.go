@@ -26,7 +26,7 @@ func TestNewTestCioLiteServer(t *testing.T) {
 
 // NewTestCioLite returns a new CioLite object
 func NewTestCioLite(t *testing.T) CioLite {
-	return NewCioLite(getEnv(t, "CIO_API_KEY"), getEnv(t, "CIO_API_SECRET"))
+	return NewCioLite(getEnv(t, "CIO_API_KEY"), getEnv(t, "CIO_API_SECRET"), false)
 }
 
 // NewTestCioLiteWithLogger returns a new CioLite object and *TestLogger object
